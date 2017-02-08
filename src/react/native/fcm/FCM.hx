@@ -5,6 +5,7 @@ import js.Promise;
 @:jsRequire('react-native-fcm')
 extern class FCM {
 	public static function getFCMToken():Promise<String>;
+	public static function restartFCM():Promise<String>;
 	public static function requestPermissions():Void;
 	public static function on<T>(label:String, listener:T->Void):Promise<T>;
 	public static function subscribeToTopic(topic:String):Void;
