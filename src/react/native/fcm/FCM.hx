@@ -2,12 +2,12 @@ package react.native.fcm;
 
 import js.Promise;
 
-@:jsRequire('react-native-fcm')
+@:jsRequire('react-native-fcm', 'default')
 extern class FCM {
 	public static function getFCMToken():Promise<String>;
 	public static function restartFCM():Promise<String>;
 	public static function requestPermissions():Void;
-	public static function on<T>(label:String, listener:T->Void):Promise<T>;
+	public static function on<T>(event:FCMEvent, listener:T->Void):Promise<T>;
 	public static function subscribeToTopic(topic:String):Void;
 	public static function unsubscribeFromTopic(topic:String):Void;
 	public static function presentLocalNotification(input:LocalNotificationInput):Void;
@@ -18,6 +18,33 @@ extern class FCM {
 	public static function setBadgeNumber():Void;
 	public static function getBadgeNumber():Promise<Int>;
 	public static function send(senderId:String, data:Dynamic):Void;
+}
+
+@:jsRequire('react-native-fcm', 'FCMEvent')
+@:enum extern abstract FCMEvent(String) {
+	var RefreshToken;
+	var Notification;
+}
+
+@:jsRequire('react-native-fcm', 'RemoteNotificationResult')
+@:enum extern abstract RemoteNotificationResult(String) {
+	var NewData;
+	var NoData;
+	var ResultFailed;
+}
+
+@:jsRequire('react-native-fcm', 'WillPresentNotificationResult')
+@:enum extern abstract WillPresentNotificationResult(String) {
+	var All;
+	var None;
+}
+
+@:jsRequire('react-native-fcm', 'NotificationType')
+@:enum extern abstract NotificationType(String) {
+	var Remote;
+	var NotificationResponse;
+	var WillPresent;
+	var Local;
 }
 
 typedef LocalNotificationInput = {
